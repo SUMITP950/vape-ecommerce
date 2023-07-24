@@ -37,7 +37,7 @@ function Body() {
     // setNotificationCount();
     // window.location.reload(1);
 
-    Marquee(".marquee", 0.5);
+    Marquee(".marquee", 0.2);
   }, []);
   return (
     <>
