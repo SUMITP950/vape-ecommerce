@@ -14538,7 +14538,7 @@ h6,
 }
 
 .section-space-ptb-100 {
-  padding: 100px 0;
+  padding: 10px 0;
 }
 
 .section-space-m {
@@ -22302,7 +22302,7 @@ h4.ec-faq-title::after,
   margin: 0 0 20px 0;
   text-decoration: none;
   display: block;
-  font-family: "Jost", sans-serif;
+  font-family: "Roboto", sans-serif !important;
   font-weight: 800;
   line-height: 30px;
   letter-spacing: 0.02rem;
@@ -35052,7 +35052,7 @@ a {
   z-index: 99;
 }
 .header .item-left {
-  flex: 0 0 17%;
+  flex: 0 0 35%;
 }
 .header .logo a {
   font-size: 30px;
@@ -35071,7 +35071,7 @@ a {
 .header .item-right a {
   text-decoration: none;
   font-size: 16px;
-  color: #555555;
+  color: #fff;
   display: inline-block;
   margin-left: 10px;
   transition: color 0.3s ease;
@@ -35220,7 +35220,7 @@ a {
   .header .mobile-menu-trigger span {
     display: block;
     height: 2px;
-    background-color: #333333;
+    background-color: #fff;
     width: 24px;
     position: relative;
   }
@@ -35231,7 +35231,7 @@ a {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #333333;
+    background-color: #fff;
   }
   .header .mobile-menu-trigger span:before {
     top: -6px;
@@ -35803,20 +35803,23 @@ form .page .btns button.next {
   font-family: FontAwesome;
   content: "1";
 }
-
-#progressbar #personal:before {
+#progressbar #otp:before {
   font-family: FontAwesome;
   content: "2";
 }
-
-#progressbar #payment:before {
+#progressbar #personal:before {
   font-family: FontAwesome;
   content: "3";
 }
 
-#progressbar #confirm:before {
+#progressbar #payment:before {
   font-family: FontAwesome;
   content: "4";
+}
+
+#progressbar #confirm:before {
+  font-family: FontAwesome;
+  content: "5";
 }
 
 #progressbar li:before {
@@ -35859,4 +35862,38 @@ form .page .btns button.next {
 .fit-image {
   width: 100%;
   object-fit: cover;
+}
+.modal-backdrop {
+  z-index: 9 !important;
+}
+.search-input {
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0.25rem;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.modal-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1rem;
+  border-bottom: 0px solid transparent !important;
+  border-top-left-radius: calc(0.3rem - 1px);
+  border-top-right-radius: calc(0.3rem - 1px);
+}
+
+.btn-sm {
+  font-size: 0.775rem;
+  border-radius: 0.2rem;
 }

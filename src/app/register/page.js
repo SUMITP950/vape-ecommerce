@@ -115,7 +115,7 @@ const Register = () => {
                   <li className="active" id="account">
                     <strong>REGISTRATION INFO</strong>
                   </li>
-                  <li id="personal">
+                  <li id="otp">
                     <strong>OTP</strong>
                   </li>
                   <li id="personal">
@@ -144,7 +144,7 @@ const Register = () => {
                         <h2 className="fs-title">REGISTRATION INFO:</h2>
                       </div>
                       <div className="col-12">
-                        <h2 className="steps">Step 1 - 4</h2>
+                        <h2 className="steps">Step 1 - 5</h2>
                       </div>
                     </div>{" "}
                     <span className="ec-register-wrap">
@@ -210,9 +210,9 @@ const Register = () => {
                       <div className="col-7">
                         <h2 className="fs-title">Email Verification :</h2>
                       </div>
-                      {/* <div className="col-12">
-                        <h2 className="steps">Step 2 - 4</h2>
-                      </div> */}
+                      <div className="col-12">
+                        <h2 className="steps">Step 2 - 5</h2>
+                      </div>
                     </div>{" "}
                     <span className="ec-register-wrap">
                       <label>Submit Your OTP</label>
@@ -244,7 +244,7 @@ const Register = () => {
                         <h2 className="fs-title">OWNER INFO:</h2>
                       </div>
                       <div className="col-12">
-                        <h2 className="steps">Step 2 - 4</h2>
+                        <h2 className="steps">Step 3 - 5</h2>
                       </div>
                     </div>{" "}
                     <span className="ec-register-wrap">
@@ -294,7 +294,7 @@ const Register = () => {
                         <h2 className="fs-title">LEGAL ENTITY INFO:</h2>
                       </div>
                       <div className="col-12">
-                        <h2 className="steps">Step 3 - 4</h2>
+                        <h2 className="steps">Step 4 - 5</h2>
                       </div>
                     </div>{" "}
                     <span className="ec-register-wrap">
@@ -410,7 +410,7 @@ const Register = () => {
                         <h2 className="fs-title">LICENSE INFO:</h2>
                       </div>
                       <div className="col-12">
-                        <h2 className="steps">Step 4 - 4</h2>
+                        <h2 className="steps">Step 5 - 5</h2>
                       </div>
                     </div>{" "}
                     <span className="ec-register-wrap">

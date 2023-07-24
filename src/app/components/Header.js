@@ -1,6 +1,67 @@
+"use client";
 import React from "react";
 import Link from "next/link";
+import { useEffect } from "react";
 const Header = () => {
+  useEffect(() => {
+    const menu = document.querySelector(".menu");
+    const menuMain = menu.querySelector(".menu-main");
+    const goBack = menu.querySelector(".go-back");
+    const menuTrigger = document.querySelector(".mobile-menu-trigger");
+    const closeMenu = menu.querySelector(".mobile-menu-close");
+    let subMenu;
+    menuMain.addEventListener("click", (e) => {
+      if (!menu.classList.contains("active")) {
+        return;
+      }
+      if (e.target.closest(".menu-item-has-children")) {
+        const hasChildren = e.target.closest(".menu-item-has-children");
+        showSubMenu(hasChildren);
+      }
+    });
+    goBack.addEventListener("click", () => {
+      hideSubMenu();
+    });
+    menuTrigger.addEventListener("click", () => {
+      toggleMenu();
+    });
+    closeMenu.addEventListener("click", () => {
+      toggleMenu();
+    });
+    document.querySelector(".menu-overlay").addEventListener("click", () => {
+      toggleMenu();
+    });
+    function toggleMenu() {
+      menu.classList.toggle("active");
+      document.querySelector(".menu-overlay").classList.toggle("active");
+    }
+    function showSubMenu(hasChildren) {
+      subMenu = hasChildren.querySelector(".sub-menu");
+      subMenu.classList.add("active");
+      subMenu.style.animation = "slideLeft 0.5s ease forwards";
+      const menuTitle =
+        hasChildren.querySelector("i").parentNode.childNodes[0].textContent;
+      menu.querySelector(".current-menu-title").innerHTML = menuTitle;
+      menu.querySelector(".mobile-menu-head").classList.add("active");
+    }
+
+    function hideSubMenu() {
+      subMenu.style.animation = "slideRight 0.5s ease forwards";
+      setTimeout(() => {
+        subMenu.classList.remove("active");
+      }, 300);
+      menu.querySelector(".current-menu-title").innerHTML = "";
+      menu.querySelector(".mobile-menu-head").classList.remove("active");
+    }
+
+    window.onresize = function () {
+      if (this.innerWidth > 991) {
+        if (menu.classList.contains("active")) {
+          toggleMenu();
+        }
+      }
+    };
+  }, []);
   return (
     <>
       <header className="ec-header header">
@@ -226,10 +287,12 @@ const Header = () => {
           </div>
         </div> */}
         <div className="container-fluid nav-menu">
-          <div className="row v-center justify-content-center">
+          <div className="row v-center">
             <div className="header-item item-left">
               <div className="logo">
-                <Link href="/">MyStore</Link>
+                <Link href="/">
+                  <img src="assets/images/logo/dark-logo.png" alt="Site Logo" />
+                </Link>
               </div>
             </div>
             {/* menu start here */}
@@ -470,7 +533,7 @@ const Header = () => {
             </div>
             {/* menu end here */}
             <div className="header-item item-right">
-              <a href="#">
+              <a data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i className="fa fa-search" />
               </a>
               <Link href="/login">
@@ -484,6 +547,34 @@ const Header = () => {
                 <span />
               </div>
             </div>
+            {/* Modal Search */}
+            <div
+              className="modal fade"
+              id="exampleModal"
+              tabIndex={-1}
+              aria-labelledby="exampleModalLabel"
+              aria-hidden="true"
+            >
+              <div className="modal-dialog mt-3">
+                <div className="modal-content">
+                  <div className="modal-body">
+                    <input
+                      class="search-input me-2"
+                      type="search"
+                      placeholder="Search"
+                      aria-label="Search"
+                    />
+                    <button
+                      class="btn bg-dark mt-2 text-light btn-sm"
+                      type="submit"
+                    >
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* modal end */}
           </div>
         </div>
       </header>
