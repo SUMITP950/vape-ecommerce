@@ -2,6 +2,8 @@ import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Image from "next/image";
+import { handleLogin } from "../api/login";
+import { _ } from "../main_controler";
 const Login = () => {
   return (
     <div>
@@ -29,7 +31,7 @@ const Login = () => {
                     </label>
                     <input
                       type="text"
-                      id="form3Example3"
+                      id="usernameemail"
                       className="form-control form-control-lg"
                       placeholder="User Name Or Email"
                     />
@@ -41,7 +43,7 @@ const Login = () => {
                     </label>
                     <input
                       type="password"
-                      id="form3Example4"
+                      id="password"
                       className="form-control form-control-lg"
                       placeholder="Enter password"
                     />
@@ -53,7 +55,7 @@ const Login = () => {
                         className="form-check-input me-2 mt-0"
                         type="checkbox"
                         defaultValue=""
-                        id="form2Example3"
+                        id="checkbox"
                       />
                       <label
                         className="form-check-label"
@@ -70,6 +72,7 @@ const Login = () => {
                     <button
                       type="button"
                       className="btn btn-primary btn-lg btn-block"
+                      onClick={handleLogin}
                       style={{
                         paddingLeft: "2.5rem",
                         paddingRight: "2.5rem",
