@@ -1,5 +1,11 @@
 import axios from "axios";
 import { _ } from "../main_controler";
+import { toast } from "react-toastify";
+export const aa = () => {
+  if (_("#email_id").value == "a") {
+    _(".next").style.display = true;
+  }
+};
 export const handleEmail = async () => {
   console.log(_("#email").value);
   await axios
@@ -7,6 +13,8 @@ export const handleEmail = async () => {
       "http://localhost:5000/email/emailCheck",
       {
         email_id: _("#email").value,
+        password: _("#password").value,
+        confirm_password: _("#confirmpassword").value,
       },
       {
         headers: {
@@ -15,13 +23,21 @@ export const handleEmail = async () => {
       }
     )
     .then(function (response) {
-      console.log(response.data.mssg);
+      if (response.data.status === "success") {
+        toast.success(`${response.data.mssg}`);
+      }
+
+      if (response.data.status === "error") {
+        // alert(response.data.mssg);
+        toast.error(`Failed : ${response.data.mssg}`);
+      }
     })
     .catch(function (error) {
       console.log(error);
     });
 };
-
+// email conform password end
+// Total form staart
 export const handleRegister = async () => {
   console.log(document.getElementById("email").value);
   await axios

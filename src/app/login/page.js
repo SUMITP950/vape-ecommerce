@@ -4,11 +4,17 @@ import Footer from "../components/Footer";
 import Image from "next/image";
 import { handleLogin } from "../api/login";
 import { _ } from "../main_controler";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Login = () => {
   return (
     <div>
       <Header />
       <>
+        <ToastContainer
+          theme="colored"
+          style={{ zIndex: 9999999 }}
+        ></ToastContainer>
         <div className="container page mt-5 pt-1">
           <div className="container-fluid h-custom">
             <div className="row d-flex justify-content-center align-items-center h-100">
