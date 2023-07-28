@@ -35683,7 +35683,7 @@ form .page .btns button.next {
 
 #msform input,
 #msform textarea {
-  padding: 8px 15px 8px 15px;
+  padding: 0px 15px 8px 15px;
   border: 1px solid #ccc;
   border-radius: 0px;
   margin-bottom: 25px;

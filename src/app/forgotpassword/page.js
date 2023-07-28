@@ -1,9 +1,29 @@
+"use client";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Image from "next/image";
+import { useFormik } from "formik";
+import * as yup from "yup";
+const Forgotpassword = () => {
+  const formik = useFormik({
+    initialValues: {
+      Registeredemial: "",
+    },
 
-const Login = () => {
+    validationSchema: yup.object({
+      Registeredemial: yup
+        .string()
+        .matches(/^[A-Za-z]+$/, "This field  must be a letter")
+        .required("*Required")
+        .min(3, "Minimum 3 characters length")
+        .max(15, "Maximum 15 characters length"),
+    }),
+    onSubmit: (values) => {
+      setfirstValidation("Yes");
+      console.log(45, values);
+    },
+  });
   return (
     <div>
       <Header />
@@ -31,9 +51,17 @@ const Login = () => {
                     <input
                       type="email"
                       id="form3Example4"
+                      name="Registeredemial"
                       className="form-control form-control-lg"
                       placeholder="Registered Email Id "
+                      value={formik.values.Registeredemial}
+                      onChange={formik.handleChange}
                     />
+                    {formik.errors.Registeredemial && (
+                      <em style={{ color: "red" }}>
+                        {formik.errors.Registeredemial}
+                      </em>
+                    )}
                   </div>
 
                   <div className="text-center text-lg-start mt-4 pt-2">
@@ -68,4 +96,4 @@ const Login = () => {
     </div>
   );
 };
-export default Login;
+export default Forgotpassword;

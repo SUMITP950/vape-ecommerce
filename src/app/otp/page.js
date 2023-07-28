@@ -1,9 +1,47 @@
+"use client";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Image from "next/image";
-
+import { useFormik } from "formik";
+import * as yup from "yup";
 const Otp = () => {
+  // form validation
+
+  const formik = useFormik({
+    initialValues: {
+      otp: "",
+      newpassword: "",
+      conpassword: "",
+    },
+
+    validationSchema: yup.object({
+      otp: yup
+        .string()
+        .required("*Required")
+        .min(3, "Minimum 3 characters length")
+        .max(10, "Maximum 15 characters length"),
+
+      newpassword: yup
+        .string()
+        .required("*Required")
+        .matches(/[^\w]/, "One Special character Required")
+        .matches(/[0-9]/, "One Number Required")
+        .min(3, "Minimum 3 characters length")
+        .max(10, "Maximum 10 characters length"),
+      conpassword: yup
+        .string()
+        .required("*Required")
+        .matches(/[^\w]/, "One Special character Required")
+        .matches(/[0-9]/, "One Number Required")
+        .min(3, "Minimum 3 characters length")
+        .max(10, "Maximum 10 characters length"),
+    }),
+    onSubmit: (values) => {
+      setfirstValidation("Yes");
+      console.log(45, values);
+    },
+  });
   return (
     <div>
       <Header />
@@ -29,11 +67,17 @@ const Otp = () => {
                       Enter OTP
                     </label>
                     <input
-                      type="email"
+                      type="number"
                       id="form3Example4"
+                      name="otp"
                       className="form-control form-control-lg"
                       placeholder="OTP "
+                      value={formik.values.otp}
+                      onChange={formik.handleChange}
                     />
+                    {formik.errors.otp && (
+                      <em style={{ color: "red" }}>{formik.errors.otp}</em>
+                    )}
                   </div>
                   <div className="form-outline mb-3">
                     <label className="form-label" htmlFor="form3Example4">
@@ -44,7 +88,15 @@ const Otp = () => {
                       id="form3Example4"
                       className="form-control form-control-lg"
                       placeholder="New Password"
+                      name="newpassword"
+                      value={formik.values.newpassword}
+                      onChange={formik.handleChange}
                     />
+                    {formik.errors.newpassword && (
+                      <em style={{ color: "red" }}>
+                        {formik.errors.newpassword}
+                      </em>
+                    )}
                   </div>
                   <div className="form-outline mb-3">
                     <label className="form-label" htmlFor="form3Example4">
@@ -53,9 +105,17 @@ const Otp = () => {
                     <input
                       type="password"
                       id="form3Example4"
+                      name="conpassword"
                       className="form-control form-control-lg"
                       placeholder="Confirm Password"
+                      value={formik.values.conpassword}
+                      onChange={formik.handleChange}
                     />
+                    {formik.errors.conpassword && (
+                      <em style={{ color: "red" }}>
+                        {formik.errors.conpassword}
+                      </em>
+                    )}
                   </div>
 
                   <div className="text-center text-lg-start mt-4 pt-2">
