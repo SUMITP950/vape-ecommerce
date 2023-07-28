@@ -1,35 +1,35 @@
 // marquee
-function Marquee(selector, speed) {
-  const parentSelector = document.querySelector(selector);
-  const clone = parentSelector.innerHTML;
-  const firstElement = parentSelector.children[0];
-  let i = 0;
-  let marqueeInterval;
+// function Marquee(selector, speed) {
+//   const parentSelector = document.querySelector(selector);
+//   const clone = parentSelector.innerHTML;
+//   const firstElement = parentSelector.children[0];
+//   let i = 0;
+//   let marqueeInterval;
 
-  parentSelector.insertAdjacentHTML("beforeend", clone);
-  parentSelector.insertAdjacentHTML("beforeend", clone);
+//   parentSelector.insertAdjacentHTML("beforeend", clone);
+//   parentSelector.insertAdjacentHTML("beforeend", clone);
 
-  function startMarquee() {
-    marqueeInterval = setInterval(function () {
-      firstElement.style.marginLeft = `-${i}px`;
-      if (i > firstElement.clientWidth) {
-        i = 0;
-      }
-      i = i + speed;
-    }, 0);
-  }
+//   function startMarquee() {
+//     marqueeInterval = setInterval(function () {
+//       firstElement.style.marginLeft = `-${i}px`;
+//       if (i > firstElement.clientWidth) {
+//         i = 0;
+//       }
+//       i = i + speed;
+//     }, 0);
+//   }
 
-  function stopMarquee() {
-    clearInterval(marqueeInterval);
-  }
+//   function stopMarquee() {
+//     clearInterval(marqueeInterval);
+//   }
 
-  parentSelector.addEventListener("mouseenter", stopMarquee);
-  parentSelector.addEventListener("mouseleave", startMarquee);
+//   parentSelector.addEventListener("mouseenter", stopMarquee);
+//   parentSelector.addEventListener("mouseleave", startMarquee);
 
-  startMarquee();
-}
+//   startMarquee();
+// }
 
-window.addEventListener("load", () => Marquee(".marquee", 0.3));
+// window.addEventListener("load", () => Marquee(".marquee", 0.3));
 
 // form js start
 
@@ -42,6 +42,7 @@ $(document).ready(function () {
   setProgressBar(current);
 
   $(".next").click(function () {
+    console.log(this);
     current_fs = $(this).parent();
     next_fs = $(this).parent().next();
 
@@ -51,6 +52,7 @@ $(document).ready(function () {
     //show the next fieldset
     next_fs.show();
     //hide the current fieldset with style
+
     current_fs.animate(
       { opacity: 0 },
       {
