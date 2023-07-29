@@ -39,18 +39,20 @@ export const handleEmail = async () => {
 // email conform password end
 // Total form staart
 export const handleRegister = async () => {
-  console.log(document.getElementById("email").value);
+  // console.log(document.getElementById("email").value);
+  // console.log(document.getElementById("username").value);
   await axios
     .post(
       "http://localhost:5000/registration/register",
       {
         email_id: _("#email").value,
         first_name: _("#username").value,
-        password: _("#username").value,
+        password: _("#password").value,
         confirm_password: _("#confirmpassword").value,
         otp: _("#otp").value,
         ph_num: _("#phonenumber").value,
-        Owner_legal_name: _("#onerfullname").value,
+        ccode: _("#ccode").value,
+        Owner_legal_name: _("#ownerfullname").value,
         company_name: _("#legalcompanyname").value,
         contact_person_fullname: _("#contactperson").value,
         street_adress: _("#streetadress").value,

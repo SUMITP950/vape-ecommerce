@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -6,7 +7,39 @@ import { handleLogin } from "../api/login";
 import { _ } from "../main_controler";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useFormik } from "formik";
+import * as yup from "yup";
 const Login = () => {
+  // form validation
+
+  const formik = useFormik({
+    initialValues: {
+      usernameemail: "",
+      password: "",
+    },
+
+    validationSchema: yup.object({
+      usernameemail: yup
+        .string()
+        .matches(/^[A-Za-z]+$/, "This field  must be a letter")
+        .required("*Required")
+        .min(3, "Minimum 3 characters length")
+        .max(15, "Maximum 15 characters length"),
+
+      password: yup
+        .string()
+        .required("*Required")
+        .matches(/[^\w]/, "One Special character Required")
+        .matches(/[0-9]/, "One Number Required")
+        .min(3, "Minimum 3 characters length")
+        .max(10, "Maximum 10 characters length"),
+    }),
+    onSubmit: (values) => {
+      setfirstValidation("Yes");
+      console.log(45, values);
+    },
+  });
   return (
     <div>
       <Header />
@@ -38,9 +71,17 @@ const Login = () => {
                     <input
                       type="text"
                       id="usernameemail"
+                      name="usernameemail"
                       className="form-control form-control-lg"
                       placeholder="User Name Or Email"
+                      value={formik.values.usernameemail}
+                      onChange={formik.handleChange}
                     />
+                    {formik.errors.usernameemail && (
+                      <em style={{ color: "red" }}>
+                        {formik.errors.usernameemail}
+                      </em>
+                    )}
                   </div>
                   {/* Password input */}
                   <div className="form-outline mb-3">
@@ -50,9 +91,15 @@ const Login = () => {
                     <input
                       type="password"
                       id="password"
+                      name="password"
                       className="form-control form-control-lg"
                       placeholder="Enter password"
+                      value={formik.values.password}
+                      onChange={formik.handleChange}
                     />
+                    {formik.errors.password && (
+                      <em style={{ color: "red" }}>{formik.errors.password}</em>
+                    )}
                   </div>
                   <div className="d-flex justify-content-between align-items-center">
                     {/* Checkbox */}
