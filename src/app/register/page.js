@@ -3,13 +3,15 @@ import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import $ from "jquery";
+import axios from "axios";
 import { useEffect, useState } from "react";
-import { _ } from "../main_controler";
+// import { _ } from "../main_controler";
 import { aa, handleEmail, handleRegister } from "../api/register";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export const metadata = {
   title: "Register",
@@ -19,6 +21,21 @@ const Register = () => {
   const [firstValidation, setfirstValidation] = useState("No");
 
   useEffect(() => {
+    // function run(hideTab, showTab) {
+    //   if (hideTab < showTab) {
+    //     // If not press previous button
+    //     // Validation if press next button
+    //     var currentTab = 0;
+    //     x = $("#tab-" + hideTab);
+    //     y = $(x).find("input");
+    //     for (i = 0; i < y.length; i++) {
+    //       if (y[i].value == "") {
+    //         $(y[i]).css("background", "#ffdddd");
+    //         return false;
+    //       }
+    //     }
+    //   }
+    // }
     $(document).ready(function () {
       var current_fs, next_fs, previous_fs; //fieldsets
       var opacity;
@@ -104,6 +121,7 @@ const Register = () => {
       });
     });
   }, []);
+
   // form validation
 
   const formik = useFormik({
@@ -115,6 +133,18 @@ const Register = () => {
       otp: "",
       onerfullname: "",
       ccode: "",
+      phonenumber: "",
+      legalcompanyname: "",
+      conntactpersongullname: "",
+      streetadress: "",
+      zipcode: "",
+      Employee_identification_number: "",
+      Authority_number: "",
+      dbaname: "",
+      SameasOwnerphn: "",
+      addressline: "",
+      state: "",
+      city: "",
     },
 
     validationSchema: yup.object({
@@ -149,10 +179,116 @@ const Register = () => {
         .max(10, "Maximum 10 characters length"),
     }),
     onSubmit: (values) => {
-      setfirstValidation("Yes");
       console.log(45, values);
     },
   });
+
+  // Api Call
+  const handleEmail = () => {
+    axios
+      .post(
+        "http://localhost:5000/otp/registerSendOtp",
+        {
+          user_name: formik.values.userName,
+          email_id: formik.values.email,
+          password: formik.values.password,
+          confirm_password: formik.values.cPassword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        if (response.data.status === "success") {
+          // toast.success(`${response.data.mssg}`);
+          // console.log("Generated OTP:", otp);
+          alert(`Your otp is ${response.data.otp}`);
+        }
+
+        if (response.data.status === "error") {
+          toast.error(`Failed : ${response.data.mssg}`);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  // Api Call
+  const handleOtp = () => {
+    axios
+      .post(
+        "http://localhost:5000/otpcheck/registerOtpCheck",
+        {
+          email_id: formik.values.email,
+          otp: formik.values.otp,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        if (response.data.status === "success") {
+          toast.success(`${response.data.mssg}`);
+        }
+
+        if (response.data.status === "error") {
+          toast.error(`Failed : ${response.data.mssg}`);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  const handleRegister = () => {
+    axios
+      .post(
+        "http://localhost:5000/registration/register",
+        {
+          email_id: formik.values.email,
+          user_name: formik.values.userName,
+          password: formik.values.password,
+          confirm_password: formik.values.confirmpassword,
+          ph_num: formik.values.phonenumber,
+          ccode: formik.values.ccode,
+          Owner_legal_name: formik.values.ownerfullname,
+          company_name: formik.values.legalcompanyname,
+          contact_person_fullname: formik.values.conntactpersongullname,
+          street_adress: formik.values.streetadress,
+          zipcode: formik.values.zipcode,
+          Employee_identification_number:
+            formik.values.Employee_identification_number,
+          Authority_number: formik.values.Authority_number,
+          DBA_name: formik.values.dbaname,
+          sameas_owner_info_phno: formik.values.SameasOwnerphn,
+          adress_line: formik.values.addressline,
+          select_state: formik.values.state,
+          city: formik.values.city,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then(function (response) {
+        if (response.data.status === "success") {
+          toast.success(`${response.data.mssg}`);
+          window.location.replace("/login");
+        }
+
+        if (response.data.status === "error") {
+          toast.error(`Failed : ${response.data.mssg}`);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <>
@@ -207,7 +343,7 @@ const Register = () => {
                 </div>{" "}
                 <br /> {/* fieldsets */}
                 {/*Form Step 1 Start */}
-                <fieldset>
+                <fieldset class="tab" id="tab-1">
                   <div className="form-card">
                     <div className="row">
                       <div className="col-7">
@@ -303,7 +439,7 @@ const Register = () => {
                 </fieldset>
                 {/*Form Step 1 End*/}
                 {/*Form Step 2 Start*/}
-                <fieldset>
+                <fieldset class="tab" id="tab-2">
                   <div className="form-card">
                     <div className="row">
                       <div className="col-7">
@@ -332,6 +468,7 @@ const Register = () => {
                   <input
                     type="button"
                     name="next"
+                    onClick={handleOtp}
                     className="next action-button"
                     defaultValue="Next"
                   />{" "}
@@ -344,7 +481,7 @@ const Register = () => {
                 </fieldset>
                 {/*Form Step 2 End*/}
                 {/*Form Step 3 Start*/}
-                <fieldset>
+                <fieldset class="tab" id="tab-3">
                   <div className="form-card">
                     <div className="row">
                       <div className="col-7">
@@ -461,54 +598,66 @@ const Register = () => {
                       <label>D.B.A. Name (Optional)</label>
                       <input
                         type="text"
-                        name="firstname"
+                        name="dbaname"
                         placeholder="D.B.A. Name (Optional)"
                         id="dbaname"
+                        value={formik.values.dbaname}
+                        onChange={formik.handleChange}
                       />
                     </span>
                     <span className="ec-register-wrap" id="zipcode">
                       <label>Zipcode</label>
                       <input
                         type="text"
-                        name="firstname"
+                        name="zipcode"
                         placeholder="Zipcode"
                         id="zipcode"
+                        value={formik.values.zipcode}
+                        onChange={formik.handleChange}
                       />
                     </span>
                     <span className="ec-register-wrap">
                       <label>Street Address</label>
                       <input
                         type="text"
-                        name="firstname"
+                        name="streetadress"
                         placeholder="Street Address"
                         id="streetadress"
+                        value={formik.values.streetadress}
+                        onChange={formik.handleChange}
                       />
                     </span>
                     <span className="ec-register-wrap">
                       <label>Address Line 2</label>
                       <input
                         type="text"
-                        name="firstname"
+                        name="addressline"
                         placeholder="Address Line 2"
                         id="addressline"
+                        value={formik.values.addressline}
+                        onChange={formik.handleChange}
                       />
                     </span>
                     <span className="ec-register-wrap">
                       <label>City</label>
                       <input
                         type="text"
-                        name="firstname"
+                        name="city"
                         placeholder="City"
                         id="city"
+                        value={formik.values.city}
+                        onChange={formik.handleChange}
                       />
                     </span>
                     <span className="ec-register-wrap">
                       <label>State</label>
                       <input
                         type="text"
-                        name="firstname"
+                        name="state"
                         placeholder="State"
                         id="state"
+                        value={formik.values.state}
+                        onChange={formik.handleChange}
                       />
                     </span>
                     <span className="ec-register-wrap">
@@ -524,9 +673,11 @@ const Register = () => {
                       <label>Phone Number</label>
                       <input
                         type="text"
-                        name="firstname"
+                        name="SameasOwnerphn"
                         placeholder="Phone Number"
                         id="SameasOwnerphn"
+                        value={formik.values.SameasOwnerphn}
+                        onChange={formik.handleChange}
                       />
                     </span>
                   </div>{" "}
@@ -561,9 +712,11 @@ const Register = () => {
                       </label>
                       <input
                         type="text"
-                        name="firstname"
+                        name="Authority_number"
                         placeholder="Sales And Use Tax or Certificate of Authority Number"
                         id="authoritynumber"
+                        value={formik.values.Authority_number}
+                        onChange={formik.handleChange}
                       />
                     </span>
                     <span className="ec-register-wrap">
@@ -573,10 +726,12 @@ const Register = () => {
                     <span className="ec-register-wrap">
                       <label>EIN (Employee Identification Number)</label>
                       <input
-                        type="text"
-                        name="firstname"
+                        type="number"
+                        name="Employee_identification_number"
                         placeholder="EIN (Employee Identification Number)"
                         id="identificationnumber"
+                        value={formik.values.Employee_identification_number}
+                        onChange={formik.handleChange}
                       />
                     </span>
                     <span className="ec-register-wrap">

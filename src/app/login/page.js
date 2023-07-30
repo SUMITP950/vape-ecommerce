@@ -20,20 +20,8 @@ const Login = () => {
     },
 
     validationSchema: yup.object({
-      usernameemail: yup
-        .string()
-        .matches(/^[A-Za-z]+$/, "This field  must be a letter")
-        .required("*Required")
-        .min(3, "Minimum 3 characters length")
-        .max(15, "Maximum 15 characters length"),
-
-      password: yup
-        .string()
-        .required("*Required")
-        .matches(/[^\w]/, "One Special character Required")
-        .matches(/[0-9]/, "One Number Required")
-        .min(3, "Minimum 3 characters length")
-        .max(10, "Maximum 10 characters length"),
+      usernameemail: yup.string().required("*Required"),
+      password: yup.string().required("*Required"),
     }),
     onSubmit: (values) => {
       setfirstValidation("Yes");

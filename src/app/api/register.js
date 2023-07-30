@@ -10,11 +10,9 @@ export const handleEmail = async () => {
   console.log(_("#email").value);
   await axios
     .post(
-      "http://localhost:5000/email/emailCheck",
+      "http://localhost:5000/otp/registerSendOtp",
       {
         email_id: _("#email").value,
-        password: _("#password").value,
-        confirm_password: _("#confirmpassword").value,
       },
       {
         headers: {
@@ -25,6 +23,8 @@ export const handleEmail = async () => {
     .then(function (response) {
       if (response.data.status === "success") {
         toast.success(`${response.data.mssg}`);
+        console.log("Generated OTP:", otp);
+        alert(`Your otp is ${response.data.otp}`);
       }
 
       if (response.data.status === "error") {
@@ -46,11 +46,11 @@ export const handleRegister = async () => {
       "http://localhost:5000/registration/register",
       {
         email_id: _("#email").value,
-        first_name: _("#username").value,
+        User_name: _("#username").value,
         password: _("#password").value,
         confirm_password: _("#confirmpassword").value,
         otp: _("#otp").value,
-        ph_num: _("#phonenumber").value,
+        phone_number: _("#phonenumber").value,
         ccode: _("#ccode").value,
         Owner_legal_name: _("#ownerfullname").value,
         company_name: _("#legalcompanyname").value,
