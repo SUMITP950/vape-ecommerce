@@ -2,7 +2,14 @@
 import React from "react";
 import Link from "next/link";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 const Header = () => {
+  const router = useRouter();
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    router.push("/login");
+  };
+
   useEffect(() => {
     const menu = document.querySelector(".menu");
     const menuMain = menu.querySelector(".menu-main");
@@ -86,9 +93,16 @@ const Header = () => {
                   {/* Language Start */}
                   <div className="header-top-lan dropdown">
                     <div className="header-top-social">
-                      <Link href="/login" className="btn bg-white">
-                        LOGIN
-                      </Link>
+                      {localStorage.getItem("authToken") ? (
+                        <button onClick={handleLogout} className="btn bg-white">
+                          LOGOUT
+                        </button>
+                      ) : (
+                        <Link href="/login" className="btn bg-white">
+                          LOGIN
+                        </Link>
+                      )}
+
                       <Link href="register" className="btn btn-signup">
                         REGISTER FOR WHOLESALE
                       </Link>
@@ -502,7 +516,9 @@ const Header = () => {
                     </div>
                   </li>
                   <li>
-                    <Link href="/myorder">Myorder</Link>
+                    {localStorage.getItem("authToken") && (
+                      <Link href="/myorder">Myorder</Link>
+                    )}
                   </li>
                   <li>
                     <Link href="/contact">Contact</Link>

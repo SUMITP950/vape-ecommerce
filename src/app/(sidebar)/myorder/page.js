@@ -127,13 +127,13 @@ const page = () => {
                             <td>$65</td>
                             <td>Active</td>
                             <td className="order-status">
-                              <a
-                                href="view-order.php"
+                              <Link
+                                href="orderdetails"
                                 className="btn small-btn theme-btn"
                               >
                                 {" "}
                                 View{" "}
-                              </a>
+                              </Link>
                               {/*<a href="go-to-cart.php" class="btn small-btn theme-btn"> Reorder </a>*/}
                             </td>
                           </tr>
